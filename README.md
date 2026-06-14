@@ -1,12 +1,12 @@
-# VIPS Pharma — Portable Edition
+# VI-PS Pharma — Portable Edition
 
-This is a **ready-to-run** copy of VIPS Pharma. No installation, no Maven, no internet connection required — just Java.
+This is a **ready-to-run** copy of VI-PS Pharma. Everything needed to run the app is included in this folder — no installation, no Maven, and no internet connection required.
 
 ---
 
 ## ✅ What You Need
 
-- **Java 17 or newer** installed on this computer
+- **Java 17 or newer** installed on this computer (only required if you use `run.bat` — see below)
 
 To check if Java is already installed, open a terminal / command prompt and type:
 ```
@@ -23,42 +23,39 @@ If Java is **not installed**, download it for free from:
 ## 📁 Folder Contents
 
 ```
-VIPS-Pharma-Portable/
-├── run.bat              ← double-click this on Windows
-├── run.sh               ← run this on Linux / macOS
+VI-PS Pharma/
+├── VI-PS.exe                 ← double-click this on Windows (easiest)
+├── run.bat                    ← alternative launcher (requires Java)
+├── javafx-sdk-26.0.1/         ← required — do not delete or move
 ├── target/
-│   ├── vips-pharma.jar  ← the application
-│   └── lib/             ← required libraries (do not delete or move)
-├── logo.png             ← (optional) replace this to use your own logo
-├── vips_pharma.db        ← created automatically on first run
-├── reports/              ← generated PDF receipts & reports appear here
-└── medicine_images/       ← (not used — safe to ignore/delete)
+│   └── vips-pharma-fat.jar    ← the application itself
+├── logo.png                   ← your pharmacy's logo (replaceable)
+├── login_bg.png               ← login screen background image (replaceable)
+├── vips_pharma.db              ← database — created/updated automatically
+└── reports/                    ← generated PDF receipts & reports appear here
 ```
 
-> ⚠️ **Do not move `vips-pharma.jar` out of the `target/` folder**, and do not move the `lib/` folder separately. They must stay together.
+> ⚠️ Keep `javafx-sdk-26.0.1/`, `target/`, and the `.exe`/`.bat` files together in the same folder. Moving the JAR out of `target/`, or moving the JavaFX SDK folder elsewhere, will prevent the app from starting.
 
 ---
 
 ## ▶️ How to Run
 
-### Windows
+### Option 1 — Windows (recommended)
+Double-click **`VI-PS.exe`**
+
+This is a native launcher and does not require Java to be on your PATH (it locates the bundled JavaFX SDK and fat JAR automatically).
+
+### Option 2 — Using run.bat (Windows, requires Java)
 Double-click **`run.bat`**
 
-A window will briefly show a command prompt, then the VIPS Pharma login screen will appear.
-
-### Linux / macOS
-1. Open a terminal in this folder
-2. Run:
-   ```bash
-   chmod +x run.sh
-   ./run.sh
-   ```
+A command prompt window will briefly appear, then the VI-PS Pharma login screen will open. This script uses the bundled `javafx-sdk-26.0.1` folder, so Java itself does not need JavaFX installed separately — just a plain Java 17+ runtime.
 
 ---
 
 ## 🔑 First-Time Login
 
-The first time you run the app, a database file (`vips_pharma.db`) is created automatically in this folder, along with a default administrator account:
+A database file (`vips_pharma.db`) is included/created automatically in this folder with a default administrator account:
 
 | Username | Password |
 |---|---|
@@ -72,22 +69,27 @@ The first time you run the app, a database file (`vips_pharma.db`) is created au
 
 ---
 
-## 🎨 Changing the Logo
+## 🎨 Changing the Logo & Login Background
 
-To replace the pill (💊) logo with your pharmacy's logo:
+Two images control the branding, both already present in this folder and safe to replace:
 
-1. Find an image file of your logo (PNG, JPG, JPEG, or GIF)
-2. Rename it to exactly: `logo.png` (or `logo.jpg` / `logo.jpeg` / `logo.gif`)
-3. Place it in **this same folder** — next to `run.bat`
-4. Close the app completely and run it again
+| File | What it does |
+|---|---|
+| `logo.png` | Appears on the login screen, sidebar, and as the window/taskbar icon |
+| `login_bg.png` | Background image on the right side of the login screen |
 
-Your logo will now appear on the login screen and in the sidebar.
+To change either:
+1. Replace the file with your own image, **keeping the same filename** (`logo.png` / `login_bg.png`)
+2. Accepted formats: PNG, JPG, JPEG, or GIF (for the logo); PNG, JPG, or JPEG (for the background)
+3. Close the app completely and reopen it
+
+If either file is removed, the app falls back to a default pill icon and a plain background — it will not crash.
 
 ---
 
 ## 🖨️ Where Are My Receipts & Reports?
 
-Every printed receipt and stock report is saved as a PDF inside the `reports/` folder, which is created automatically the first time you print something.
+Every printed receipt and stock report is saved as a PDF inside the `reports/` folder. The underlying XML data used to generate each PDF is kept in `reports/data/` for reference.
 
 ---
 
@@ -105,20 +107,23 @@ Ask your administrator to create an account for you. Each account has one of the
 
 ## ❓ Troubleshooting
 
-**"JavaFX runtime components are missing" error**
-→ Make sure you're running `run.bat` / `run.sh`, **not** double-clicking `vips-pharma.jar` directly.
+**"javafx-sdk-26.0.1\lib not found" or "vips-pharma-fat.jar not found"**
+→ One of the required folders/files has been moved or deleted. Re-extract the original distribution folder and try again, keeping everything together.
 
-**"java is not recognized" / "command not found"**
-→ Java isn't installed, or isn't on your system PATH. Install Java 17+ from https://adoptium.net/ and restart your computer.
+**"java is not recognized" / "command not found" (when using run.bat)**
+→ Java isn't installed, or isn't on your system PATH. Install Java 17+ from https://adoptium.net/ and restart your computer. Alternatively, use `VI-PS.exe` instead, which doesn't require Java on PATH.
 
 **The app won't open / closes immediately**
-→ Open a terminal/command prompt in this folder and run the script manually (instead of double-clicking) to see the error message. Take a screenshot and send it to your IT support / developer.
+→ Try `run.bat` instead of the `.exe` (or vice versa) to see if you get an error message. You can also open a command prompt in this folder and run `run.bat` manually to see the full error text.
 
 **I forgot the admin password**
 → Contact your developer — the database will need to be reset or the password manually updated.
 
 **A PDF didn't open after printing**
 → Check the `reports/` folder — the PDF was still created, it just may not have opened automatically. Open it manually with any PDF reader.
+
+**The ₱ (peso sign) shows as a box or question mark in PDFs**
+→ This shouldn't happen with the bundled fonts, but if it does, ensure the `target/` folder wasn't modified — the fat JAR includes the required Unicode font files.
 
 ---
 
