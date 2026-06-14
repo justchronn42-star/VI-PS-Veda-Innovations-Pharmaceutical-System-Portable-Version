@@ -124,9 +124,3 @@ Ask your administrator to create an account for you. Each account has one of the
 
 **The ₱ (peso sign) shows as a box or question mark in PDFs**
 → This shouldn't happen with the bundled fonts, but if it does, ensure the `target/` folder wasn't modified — the fat JAR includes the required Unicode font files.
-
----
-
-## 📞 Support
-
-For technical issues, contact your system administrator or the developer who provided this software.
